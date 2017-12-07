@@ -12,7 +12,7 @@ public class LottoLists {
         
         // TODO tests
         Scanner scan = new Scanner(System.in);
-        List<Integer> choice = getIntArrayFromScanner(scan, 6, 1, 49);
+        List<Integer> choice = getIntListFromScanner(scan, 6, 1, 49);
         scan.close();
         List<Integer> draw = newDraw();
         
@@ -73,7 +73,7 @@ public class LottoLists {
      * @param endValue - highest acceptable number
      * @return List<Integer> with numbers chosen by user
      */
-    public static List<Integer> getIntArrayFromScanner(Scanner scan, int length, int startValue, int endValue) {
+    public static List<Integer> getIntListFromScanner(Scanner scan, int length, int startValue, int endValue) {
         List<Integer> results = new ArrayList<Integer>();
         System.out.println("Choose 6 lucky numbers!");      // message for user
         while ( results.size() < length ) {             // loop until required number of integers read
