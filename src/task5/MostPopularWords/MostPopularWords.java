@@ -66,7 +66,7 @@ public class MostPopularWords {
         FileWriter writer = new FileWriter(fileName, true);
         Connection connect = Jsoup.connect(websiteUrl);
         Document document = connect.get();
-        Elements elements = document.select(cssQuery);  // TODO "span.title"
+        Elements elements = document.select(cssQuery);
         
         StringTokenizer st;
         for ( Element elem : elements ) {
