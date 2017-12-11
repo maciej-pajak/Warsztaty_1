@@ -48,7 +48,7 @@ public class LottoLists {
             results.add(i);
         }         
         Collections.shuffle(results);       // shuffle (permute randomly)   
-        results = results.subList(0, 5);    // extract first 6 elements
+        results = results.subList(0, 6);    // extract first 6 elements
         Collections.sort(results);          // sort (for nice display later)
         
         return results;
