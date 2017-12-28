@@ -1,4 +1,4 @@
-package task4.RollDice;
+package pl.maciejpajak.rollDice;
 
 import java.util.Random;
 import java.util.Scanner;

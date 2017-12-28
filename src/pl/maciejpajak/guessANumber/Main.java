@@ -1,4 +1,4 @@
-package task1.guessing_numbes_game;
+package pl.maciejpajak.guessANumber;
 
 import java.util.Random;
 import java.util.Scanner;

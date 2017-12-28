@@ -1,8 +1,8 @@
-package task3.guessing_numbes_2;
+package pl.maciejpajak.numbers;
 
 import java.util.Scanner;
 
-public class GuessGame2 {
+public class GuessGame {
 
     // declare global variables
     private static boolean loop = true;
@@ -36,7 +36,7 @@ public class GuessGame2 {
      * @return {@code int} guess number
      */
     private static int guess() {
-        return (int) ( (max - min) / 2 + min);
+        return ( (max - min) / 2 + min);
     }
     
     /**

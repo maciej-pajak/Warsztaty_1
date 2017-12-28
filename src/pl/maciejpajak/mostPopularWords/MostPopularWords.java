@@ -1,4 +1,4 @@
-package task5.MostPopularWords;
+package pl.maciejpajak.mostPopularWords;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,7 +8,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -33,6 +37,7 @@ public class MostPopularWords {
         for ( String[] website : popularWebsites ) {
             try {
                 exportWordToFile(website[0], website[1], "popular_words.txt", 3);
+                System.out.println("export from " + website[0] + " successful");
             } catch (IOException e) {
                 System.out.println("error while exporting words from " + website + "popular_words.txt");
             }
@@ -44,10 +49,13 @@ public class MostPopularWords {
             Scanner scan = new Scanner(path);
             writeToFile(getMostPopular(scan, 10, true), "most_popular_words.txt");
             scan.close();
+            System.out.println("most popular words found successfully");
         } catch (IOException e) {
             System.out.println("error: could not read the file");
             e.printStackTrace();
         }
+        
+        
      
     }
     
@@ -70,7 +78,6 @@ public class MostPopularWords {
         
         StringTokenizer st;
         for ( Element elem : elements ) {
-            // st = new StringTokenizer( elem.text().replaceAll("\\W+", " ") ); // this will replace also polish characters
             st = new StringTokenizer( elem.text(), " ,.?!:;()-\"\'" );
             
             while ( st.hasMoreTokens() ) {
@@ -99,7 +106,6 @@ public class MostPopularWords {
             fp.close();
         } catch (FileNotFoundException e) {
             System.out.println("error writing to file: " + fileName);
-            //e.printStackTrace();
         }
     }
     
@@ -110,27 +116,31 @@ public class MostPopularWords {
      * @param caseInsensitive {@code boolean} true to make the method case insensitive, false otherwise
      * @return {@code List<String>} 
      */
-    private static List<String> getMostPopular(Scanner scan, int resultsNumber, boolean caseInsensitive) {
+    private static List<String> getMostPopular(Scanner scan, int resultsNumber, boolean caseInsensitive) { 
         
-        List<WordOccurrence> test = new ArrayList<WordOccurrence>();  
+        Map<String,Integer> words = new HashMap<String,Integer>();
         
         while ( scan.hasNext() ) {
             String tmp = scan.next().toLowerCase();
-            int i = test.indexOf(new WordOccurrence(tmp, 1));
-            if ( i == -1 ) {
-                test.add(new WordOccurrence(tmp, 1));
+            if ( words.containsKey(tmp) ) {
+                words.replace( tmp, words.get(tmp) + 1 );
             } else {
-                test.get(i).occurrences++;
+                words.put(tmp, 1);
             }
         }
         
-        Collections.sort(test);
-        
         List<String> results = new ArrayList<String>();
         
-        for (int i = 1 ; i <= resultsNumber && i < test.size() ; i++) {
-            results.add( test.get( test.size() - i ).word);
-            System.out.println(test.get( test.size() - i ).toString());
+        List<Entry<String,Integer>> list = new ArrayList<Entry<String,Integer>>(words.entrySet());
+        
+        Collections.sort(list, new Comparator<Entry<String,Integer>>() {
+            public int compare(Entry<String,Integer> o1, Entry<String,Integer> o2) {
+                return o1.getValue() - o2.getValue();
+            }
+        });
+        
+        for (int i = 1 ; i <= resultsNumber && i < list.size() ; i++) {
+            results.add( list.get( list.size() - i ).getKey() );
         }
 
         return results;       

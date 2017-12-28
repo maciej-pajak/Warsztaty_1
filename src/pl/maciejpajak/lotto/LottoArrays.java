@@ -1,4 +1,4 @@
-package task2.lotto;
+package pl.maciejpajak.lotto;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -133,11 +133,7 @@ public class LottoArrays {
         int[] tmp = arr.clone();    // clone to preserver original array
         Arrays.sort(tmp);           // required by binarySearch method
         
-        if ( Arrays.binarySearch(tmp, value) >= 0 ) {
-            return true;
-        } else {
-            return false;
-        }
+        return Arrays.binarySearch(tmp, value) >= 0;
     }
     
 

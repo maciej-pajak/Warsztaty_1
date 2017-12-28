@@ -1,4 +1,4 @@
-package task2.lotto;
+package pl.maciejpajak.lotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
